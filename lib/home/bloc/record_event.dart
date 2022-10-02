@@ -17,8 +17,6 @@ class OnSendSongFile extends RecordEvent{
   List<Object> get props => [songFileToSave];
 }
 
-class OnPruebaSongAPI extends RecordEvent{}
-
 class LoadSongInfo extends RecordEvent{}
 
 class OnListenToSong extends RecordEvent{}
