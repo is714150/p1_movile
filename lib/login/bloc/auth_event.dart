@@ -9,8 +9,6 @@ abstract class AuthEvent extends Equatable {
 
 class VerifyAuthEvent extends AuthEvent {}
 
-class AnonymousAuthEvent extends AuthEvent {}
-
 class GoogleAuthEvent extends AuthEvent {}
 
 class SignOutEvent extends AuthEvent {}
