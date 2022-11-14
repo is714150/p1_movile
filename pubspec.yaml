@@ -20,6 +20,12 @@ dependencies:
   url_launcher:
   http:
   permission_handler:
+  firebase_core:
+  cloud_firestore:
+  firebase_auth:
+  google_sign_in:
+  flutterfire_ui:
+  firebase_storage:
 
 dev_dependencies:
   flutter_test:
@@ -33,3 +39,4 @@ flutter:
     - assets/icon/spotify.png
     - assets/icon/apple.png
     - assets/icon/linktree.png
+    - assets/icon/bg.gif

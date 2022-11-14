@@ -28,7 +28,7 @@ class RecordBloc extends Bloc<RecordEvent, RecordState> {
   
       await record.start();
 
-      await Future.delayed(Duration(seconds: 4));
+      await Future.delayed(Duration(seconds: 5));
 
       String? _listedSongPath = await record.stop();
 

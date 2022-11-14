@@ -3,7 +3,10 @@ import 'package:avatar_glow/avatar_glow.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:p1_moviles/favorites/favorites_page.dart';
 import 'package:p1_moviles/home/bloc/record_bloc.dart';
+import 'package:p1_moviles/login/bloc/auth_bloc.dart';
 import 'package:p1_moviles/songPreview/song_preview.dart';
+
+import '../favorites/bloc/favorites_bloc.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -30,7 +33,7 @@ class _HomePageState extends State<HomePage> {
             _animate = false;
           });
           ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text("Error con la cancion")));
+              .showSnackBar(SnackBar(content: Text("Error al buscar la cancion")));
         } else if (state is RecordSuccessState) {
           setState(() {
             _animate = false;
@@ -95,7 +98,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                     IconButton(
                       onPressed: () {
-                        //Añadir a favoritos
+                        BlocProvider.of<FavoritesBloc>(context).add(OnGetFavorites());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Favorites()
+                          )
+                        );
                       },
                       icon: CircleAvatar(
                         child: Icon(Icons.favorite),
@@ -105,6 +114,38 @@ class _HomePageState extends State<HomePage> {
                       iconSize: 40,
                       tooltip: "Favoritos",
                     ),
+                    IconButton(
+                      onPressed: () {
+                        showDialog(context: context, builder: (builder) => AlertDialog(
+                            title: Text("Cerrar sesión"),
+                            content: Text("Al cerrar sesión de su cuenta será redirigido a la pantalla de Log in, ¿Quiere continuar?"),
+                            actions: [
+                              TextButton(
+                                child: Text("Cancelar"), 
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                              TextButton(
+                                child: Text("Cerrar sesión"), 
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  BlocProvider.of<AuthBloc>(context)..add(SignOutEvent());
+                                },
+                              ),
+                            ],
+                          ),
+                        );
+                        
+                      },
+                      icon: CircleAvatar(
+                        child: Icon(Icons.power_settings_new),
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black,
+                      ),
+                      iconSize: 40,
+                      tooltip: "Salir",
+                    )
                   ],
                 ),
               ],
